@@ -3,4 +3,4 @@
 
 yarn lint:fix
 yarn test
-yarn compile
+yarn build
