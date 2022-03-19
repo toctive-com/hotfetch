@@ -1,3 +1,17 @@
-const sum = (x: number, y: number) : number => x + y;
+class HotFetch {
+  html: string;
 
-export default sum;
+  constructor() {
+    this.html = '';
+  }
+
+  loadHTML(html: string) {
+    this.html = html;
+  }
+
+  content() {
+    return this.html;
+  }
+}
+
+export default HotFetch;
