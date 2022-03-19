@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'plugin:jest/recommended',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -16,6 +17,7 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'jest',
+    'import',
   ],
   rules: {
     'jest/no-disabled-tests': 'warn',
@@ -23,5 +25,15 @@ module.exports = {
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
 };

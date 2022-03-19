@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
     "start": "npx ts-node ./src ./dist",
     "build": "tsc ./src/index.ts --outDir ./dist",
     "build:watch": "tsc -w ./src/index.ts --outDir ./dist",
