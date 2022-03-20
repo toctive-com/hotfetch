@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samehelalfi/hotfetch.git"
+    "url": "git+https://github.com/toctive-dev/hotfetch.git"
   },
   "keywords": [
     "scrape",
@@ -26,12 +26,12 @@
     "web",
     "dom"
   ],
-  "author": "Sameh Elalfi",
+  "author": "Toctive",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samehelalfi/hotfetch/issues"
+    "url": "https://github.com/toctive-dev/hotfetch/issues"
   },
-  "homepage": "https://github.com/samehelalfi/hotfetch#readme",
+  "homepage": "https://github.com/toctive-dev/hotfetch#readme",
   "devDependencies": {
     "@babel/core": "^7.17.7",
     "@babel/preset-env": "^7.16.11",
