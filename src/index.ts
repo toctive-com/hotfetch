@@ -52,6 +52,42 @@ class HotFetch {
     return this.html;
   }
 
+  protected getAttributesFromElement(element: any, attributes: string[]): string[] {
+    const foundAttributesInElement: string[] = [];
+
+    // search for every attribute in single element
+    attributes.forEach((attribute) => {
+      const foundValues: string[] = [];
+
+      if (attribute.toLowerCase() === 'text') {
+        const value = this.$(element).text().replace(/\s+/g, ' ').trim();
+        if (value !== '') foundValues.push(value);
+      } else if (attribute.toLowerCase() === 'html') {
+        // method html may return null if it cannot find the element we looking for.
+        // so that, we store the returned value in a temp variable and check
+        // its value before assign it to `foundAttribute` variable
+        const foundAttributeTemp = this.$(element).html();
+        if (foundAttributeTemp !== null) foundValues.push(foundAttributeTemp);
+      } else {
+        // method attr may return undefined if the element does NOT have the attribute
+        // we looking for. so that, we store the returned value in a temp variable and check
+        // its value before assign it to `foundAttribute` variable
+        const foundAttributeTemp = this.$(element).attr(attribute);
+
+        // sometimes the element does NOT contain the wanted attribute
+        // so we must check if the returned attribute is undefined or not before storing it
+        if (foundAttributeTemp !== undefined) {
+          foundValues.push(foundAttributeTemp);
+        }
+      }
+
+      // we don't want to include empty strings in the final result
+      foundValues.forEach((value) => { foundAttributesInElement.push(value); });
+    });
+
+    return foundAttributesInElement;
+  }
+
   /**
    * For every element in the selected elements, we search for the wanted attributes and store them
    * in the result array
@@ -70,42 +106,18 @@ class HotFetch {
     // loop over every element of the selected elements
     selectedElements.forEach((selectedElement) => {
       // every element will contain some attributes and we store them here
-      const foundAttributes: string[] = [];
-
       // search for every attribute in single element
-      wantedAttributes.forEach((attribute) => {
-        let foundAttribute: string = '';
-        if (attribute.toLowerCase() === 'text') {
-          foundAttribute = this.$(selectedElement).text().replace(/\s+/g, ' ').trim();
-        } else if (attribute.toLowerCase() === 'html') {
-          // method html may return null if it cannot find the element we looking for.
-          // so that, we store the returned value in a temp variable and check
-          // its value before assign it to `foundAttribute` variable
-          const foundAttributeTemp = this.$(selectedElement).html();
-          if (foundAttributeTemp !== null) {
-            foundAttribute = foundAttributeTemp;
-          }
-        } else {
-          // method attr may return undefined if the element does NOT have the attribute
-          // we looking for. so that, we store the returned value in a temp variable and check
-          // its value before assign it to `foundAttribute` variable
-          const foundAttributeTemp = this.$(selectedElement).attr(attribute);
+      const foundAttributesInElement: string[] = this.getAttributesFromElement(
+        selectedElement,
+        wantedAttributes,
+      );
 
-          // sometimes the element does NOT contain the wanted attribute
-          // so we must check if the returned attribute is undefined or not before storing it
-          if (foundAttributeTemp !== undefined) {
-            foundAttribute = foundAttributeTemp;
-          }
-        }
-
-        foundAttributes.push(foundAttribute);
-      });
-
-      result.push(foundAttributes);
+      if (foundAttributesInElement.length !== 0) result.push(foundAttributesInElement);
     });
 
     // return the final array of attributes we found of every element
-    return result;
+    // we should return a single array not a nested arrays, so, we use flat method to do so.
+    return result.flat();
   }
 
   /**
@@ -118,20 +130,21 @@ class HotFetch {
 
     // for every item in elements
     Object.keys(elements).forEach((key) => {
-      const { selector } = elements[key];
-      let attrs = elements[key].get || ['text'];
-      let selectedElements: any = this.$(selector);
-
-      // sometimes the $ object could return a single element
-      if (!Array.isArray(selectedElements)) { selectedElements = [selectedElements]; }
+      const { selector: requestedSelectors } = elements[key];
+      const requestedAttributes = elements[key].get || 'text';
+      let selectorsAsArray = requestedSelectors;
 
       // if the user used a single string like 'text' or 'class', convert it to array of strings
-      if (!Array.isArray(attrs)) { attrs = [attrs]; }
+      const attributesAsArray = Array.isArray(requestedAttributes)
+        ? requestedAttributes : [requestedAttributes];
 
-      result[key] = this.getAttributes(selectedElements, attrs);
+      // sometimes the $ object could return a single element
+      if (!Array.isArray(requestedSelectors)) { selectorsAsArray = [selectorsAsArray]; }
+
+      result[key] = this.getAttributes(selectorsAsArray, attributesAsArray);
 
       // if the selector and attributes are NOT arrays then return only the first result
-      if (!Array.isArray(selector) && !Array.isArray(attrs)) {
+      if (!Array.isArray(requestedSelectors) && !Array.isArray(requestedAttributes)) {
         result[key] = result[key].at(0);
       }
     });
