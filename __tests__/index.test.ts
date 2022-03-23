@@ -77,8 +77,30 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       expect(result).toEqual({ headings: 'Some Content' });
     });
 
-    it.todo('get text without passing a `get` key one element');
-    it.todo('get html source code from one element');
+    it('get text without passing a `get` key one element', async () => {
+      // Create Server to simulate making http request using axios
+      const htmlContent = '<h1 class="title">Some Content</h1>';
+      server = createServer(htmlContent);
+
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
+      const result = HF.extract({
+        headings: { selector: 'h1' },
+      });
+
+      expect(result).toEqual({ headings: 'Some Content' });
+    });
+    it('get html source code from one element', async () => {
+      // Create Server to simulate making http request using axios
+      const htmlContent = '<h1 class="title"><span>Some Content</span></h1>';
+      server = createServer(htmlContent);
+
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
+      const result = HF.extract({
+        headings: { selector: 'h1', get: 'html' },
+      });
+
+      expect(result).toEqual({ headings: '<span>Some Content</span>' });
+    });
 
     it('extracts text from list of elements', async () => {
       // Create Server to simulate making http request using axios
