@@ -2,7 +2,7 @@
   "name": "hotfetch",
   "version": "1.0.0",
   "description": "Scrape pages and extract data in ease",
-  "main": "src/index.ts",
+  "main": "dist/index.ts",
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watchAll --maxWorkers=1",

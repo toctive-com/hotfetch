@@ -41,16 +41,16 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       const htmlContent = '<p>Paragraph</p>';
       HF.loadHTML(htmlContent);
 
-      expect(HF.content()).toBe(`<html><head></head><body>${htmlContent}</body></html>`);
+      expect(HF.getHTML()).toBe(`<html><head></head><body>${htmlContent}</body></html>`);
     });
 
     it('loads from URL', async () => {
       // Create Server to simulate making http request using axios
       const htmlContent = 'Some Content';
       server = createServer(htmlContent);
-      await HF.loadURL(`http://localhost:${randomPort}/`);
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
 
-      expect(HF.content()).toBe(`<html><head></head><body>${htmlContent}</body></html>`);
+      expect(HF.getHTML()).toBe(`<html><head></head><body>${htmlContent}</body></html>`);
     });
 
     it('use not valid URL', async () => {
@@ -58,8 +58,8 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       const htmlContent = 'Some Content';
       server = createServer(htmlContent);
 
-      await expect(HF.loadURL(`http://localhost:${randomPort}/`)).resolves.not.toThrow();
-      await expect(HF.loadURL('not valid URL')).rejects.toThrow();
+      await expect(HF.loadFromURL(`http://localhost:${randomPort}/`)).resolves.not.toThrow();
+      await expect(HF.loadFromURL('not valid URL')).rejects.toThrow();
     });
   });
 
@@ -69,7 +69,7 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       const htmlContent = '<h1 class="title">Some Content</h1>';
       server = createServer(htmlContent);
 
-      await HF.loadURL(`http://localhost:${randomPort}/`);
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
       const result = HF.extract({
         headings: { selector: 'h1', get: 'text' },
       });
@@ -77,12 +77,15 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       expect(result).toEqual({ headings: 'Some Content' });
     });
 
+    it.todo('get text without passing a `get` key one element');
+    it.todo('get html source code from one element');
+
     it('extracts text from list of elements', async () => {
       // Create Server to simulate making http request using axios
       const htmlContent = '<h1 class="title">Heading Content</h1><p>Paragraph Content</p>';
       server = createServer(htmlContent);
 
-      await HF.loadURL(`http://localhost:${randomPort}/`);
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
       const result = HF.extract({
         headings: { selector: ['h1.title', 'p'], get: 'text' },
       });
@@ -97,7 +100,7 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       const htmlContent = '<h1 class="title" data-temp="hello">Some Content</h1>';
       server = createServer(htmlContent);
 
-      await HF.loadURL(`http://localhost:${randomPort}/`);
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
       const result = HF.extract({
         headings: { selector: '.title', get: ['class', 'data-temp'] },
       });
@@ -112,7 +115,7 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       const htmlContent = '<h1 class="title" data-temp="hello">Some Content</h1><p class="text-lg">Some Content</p>';
       server = createServer(htmlContent);
 
-      await HF.loadURL(`http://localhost:${randomPort}/`);
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
       const result = HF.extract({
         headings: { selector: ['p', '.title'], get: ['class', 'data-temp'] },
       });
