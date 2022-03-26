@@ -7,8 +7,10 @@ interface elementsObject {
   [key: string]: {
     selector: string | Array<string> | BasicAcceptedElems<any>,
     get?: Array<string> | string,
-    options?: Object,
-    callback?: Function
+    options?: {
+      limit?: number
+    },
+    callback?: (result: any) => any
   }
 }
 
@@ -146,6 +148,11 @@ class HotFetch {
       // if the selector and attributes are NOT arrays then return only the first result
       if (!Array.isArray(requestedSelectors) && !Array.isArray(requestedAttributes)) {
         result[key] = result[key].at(0);
+      }
+
+      // execute the callback if it exists
+      if (typeof elements[key].callback !== 'undefined') {
+        result[key] = elements[key].callback!('called');
       }
     });
 

@@ -1,22 +1,25 @@
 import {
-  afterEach,
-  beforeEach, describe, expect, it,
+  afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, jest,
 } from '@jest/globals';
 import {
   createHttpTerminator,
   HttpTerminator,
 } from 'http-terminator';
+import dotenv from 'dotenv';
 
 import { makeHTTPServer } from '../src/helpers';
 
 import HotFetch from '../src/index';
+
+// Load all env variables
+dotenv.config();
 
 describe('Test Loading And Extracting Data From URLs And HTML Content As String', () => {
   let HF: HotFetch;
 
   /* contain a random port [1024 : 25000] because the server throws an error cause
    `port already in use` */
-  let randomPort: number;
+  let randomPort: number | string;
 
   /* This variable is used to store the server object so we can stop it after every test. */
   let server: HttpTerminator;
@@ -146,6 +149,25 @@ describe('Test Loading And Extracting Data From URLs And HTML Content As String'
       expect(result.headings).toContain('title');
       expect(result.headings).toContain('text-lg');
       expect(result.headings).toHaveLength(3);
+    });
+  });
+
+  describe('run callback after extracting elements and attributes', () => {
+    it('checks if the callback is called once', async () => {
+      // Create Server to simulate making http request using axios
+      const htmlContent = '<h1 class="title" data-temp="hello">Some Content</h1>';
+      server = createServer(htmlContent);
+      await HF.loadFromURL(`http://localhost:${randomPort}/`);
+
+      const result = HF.extract({
+        headings: {
+          selector: '.title',
+          get: ['class', 'data-temp'],
+          callback: () => 'called',
+        },
+      });
+
+      expect(result.headings).toBe('called');
     });
   });
 
