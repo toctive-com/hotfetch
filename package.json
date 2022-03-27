@@ -1,5 +1,5 @@
 {
-  "name": "@toctive-dev/hotfetch",
+  "name": "hotrich",
   "version": "1.2.1",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.ts",
