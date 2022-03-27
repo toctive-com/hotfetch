@@ -234,7 +234,7 @@ class HotFetch {
       ) {
         this.result[key] = foundAttributes;
       } else {
-        this.result[key] = foundAttributes.at(0) || null;
+        this.result[key] = foundAttributes?.at(0) || null;
       }
 
       // execute the callback if it exists
