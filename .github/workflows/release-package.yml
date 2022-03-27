@@ -16,6 +16,7 @@ jobs:
           node-version: "16.x"
           registry-url: "https://npm.pkg.github.com/"
           always-auth: true
+          scope: "@toctive"
       - run: yarn
       - run: yarn test
       - run: yarn publish
