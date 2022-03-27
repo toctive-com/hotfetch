@@ -1,6 +1,6 @@
 {
   "name": "hotrich",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.ts",
   "scripts": {
