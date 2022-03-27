@@ -1,6 +1,6 @@
 {
-  "name": "@toctive/hotrich",
-  "version": "1.2.3",
+  "name": "hotrich",
+  "version": "1.2.4",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.ts",
   "scripts": {
