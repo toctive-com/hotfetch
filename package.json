@@ -1,5 +1,5 @@
 {
-  "name": "@samehelalfi/hotfetch",
+  "name": "hotfetch",
   "version": "2.0.0",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/toctive-dev/hotfetch.git"
+    "url": "git+https://github.com/toctive-com/hotfetch.git"
   },
   "keywords": [
     "scrape",
@@ -25,12 +25,12 @@
     "web",
     "dom"
   ],
-  "author": "Toctive",
+  "author": "Toctive.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/toctive-dev/hotfetch/issues"
+    "url": "https://github.com/toctive-com/hotfetch/issues"
   },
-  "homepage": "https://github.com/toctive-dev/hotfetch#readme",
+  "homepage": "https://github.com/toctive-com/hotfetch#readme",
   "devDependencies": {
     "@babel/core": "^7.17.7",
     "@babel/preset-env": "^7.16.11",
