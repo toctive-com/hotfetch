@@ -1,8 +1,8 @@
 {
-  "name": "hotrich",
-  "version": "1.2.4",
+  "name": "hotfetch",
+  "version": "1.0.0",
   "description": "Scrape pages and extract data in ease",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watchAll --maxWorkers=1",

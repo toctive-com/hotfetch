@@ -1,4 +1,11 @@
 {
-  "cSpell.words": ["Elems", "hotfetch", "Toctive"],
+  "cSpell.words": [
+    "Elems",
+    "fsevents",
+    "hotfetch",
+    "npmjs",
+    "npmrc",
+    "Toctive"
+  ],
   "jest.jestCommandLine": "yarn test"
 }
