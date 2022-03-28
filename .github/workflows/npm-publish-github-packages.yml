@@ -19,16 +19,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-          scope: "@toctive-com"
-          always-auth: true
-
-      - run: npm config set //npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - run: npm ci
-      - run: npm config set scope "@toctive-com"
-      - run: npm config ls
+      - run: node ./scripts/rename-package.js
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
