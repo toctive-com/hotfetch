@@ -29,6 +29,6 @@ jobs:
           registry-url: https://registry.npmjs.org/
           scope: "@samehelalfi"
       - run: npm ci
-      - run: npm publish
+      - run: npm publish --@samehelalfi:registry=https://npm.pkg.github.com/
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
