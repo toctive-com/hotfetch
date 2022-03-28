@@ -2158,9 +2158,6 @@
 "human-signals@^2.1.0":
   "version" "2.1.0"
 
-"husky@^7.0.4":
-  "version" "7.0.4"
-
 "iconv-lite@0.4.24":
   "version" "0.4.24"
   dependencies:
