@@ -13,17 +13,17 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
-      # check yarn version is the same as development environment
-      - name: "yarn version is:"
-        run: yarn -v
+      # check npm version is the same as development environment
+      - name: "npm version is:"
+        run: npm -v
 
       - name: "check the current files"
         run: ls -la
 
-      - run: yarn
-      - run: yarn test
-      - run: yarn build
-      - run: yarn lint
-      - run: yarn publish
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build
+      - run: npm run lint
+      - run: npm publish
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
