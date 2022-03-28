@@ -58,8 +58,5 @@
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
   }
 }
