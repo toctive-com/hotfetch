@@ -14,16 +14,17 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
           scope: "@toctive-com"
+          always-auth: true
 
-      - run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      # - run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       # - run: npm config set scope "@toctive-com"
       - run: npm config list
