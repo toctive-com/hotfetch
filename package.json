@@ -1,5 +1,5 @@
 {
-  "name": "hotfetch",
+  "name": "@samehelalfi/hotfetch",
   "version": "2.0.0",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.js",
