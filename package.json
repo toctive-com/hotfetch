@@ -1,5 +1,5 @@
 {
-  "name": "hotfetch",
+  "name": "@toctive-com/hotfetch",
   "version": "2.0.5",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.js",
