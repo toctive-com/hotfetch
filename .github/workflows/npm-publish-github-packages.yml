@@ -21,9 +21,9 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: "@toctive-com"
 
-      # - run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       # - run: npm config set scope "@toctive-com"
       - run: npm config list
