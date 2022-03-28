@@ -1,6 +1,6 @@
 {
-  "name": "@toctive-com/hotfetch",
-  "version": "2.0.5",
+  "name": "hotfetch",
+  "version": "2.0.6",
   "description": "Scrape pages and extract data in ease",
   "main": "dist/index.js",
   "scripts": {
