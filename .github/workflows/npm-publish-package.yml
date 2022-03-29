@@ -10,39 +10,70 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
-      - name: "install dependencies"
+      - name: "Install dependencies"
         run: npm ci
 
-      - name: "check linting"
+      - name: "Check linting"
         run: npm run lint
 
-      - name: "start testing the project"
+      - name: "Start testing the project"
         run: npm run test
 
-      - name: "build the project"
+      - name: "Build the project"
         run: npm run build
 
-  publish-gpr:
+  publish-npm:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
-      - run: npm ci
-      - run: npm publish --access public
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Publish to GitHub Package Registry"
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  publish-gpr:
+    needs: [build, publish-npm]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Add scope to the package name"
+        run: node ./scripts/rename-package.js
+
+      - name: "Publish to GitHub Package Registry"
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: "Remove scope from the package name"
+        run: node ./scripts/rename-package.js

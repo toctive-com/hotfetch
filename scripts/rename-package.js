@@ -9,8 +9,13 @@ const path = require('path');
 // importing the package.json file
 const package = require('../package.json');
 
-// rename the package (add the scope to it)
-package.name = `${package.scope}/${package.name}`;
+if (package.name.includes('/')) {
+  // remove the scope from the package name
+  package.name = package.name.split('/').at(1);
+} else {
+  // add the scope to package name
+  package.name = `${package.scope}/${package.name}`;
+}
 
 // write the changes to package.json again
 fs.writeFileSync(path.resolve(__dirname, '../package.json'), JSON.stringify(package, null, 2));
