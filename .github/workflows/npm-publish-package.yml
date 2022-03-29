@@ -50,8 +50,36 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
+  publish-npm-with-scope:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Add scope to the package name"
+        run: node ./scripts/rename-package.js
+
+      - name: "Publish to GitHub Package Registry"
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: "Remove scope from the package name"
+        run: node ./scripts/rename-package.js
+
   publish-gpr:
-    needs: [build, publish-npm]
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
