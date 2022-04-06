@@ -44,6 +44,12 @@ jobs:
       - name: "Install dependencies"
         run: npm ci
 
+      - name: "Build the project"
+        run: npm run build
+
+      - name: "Start testing the project"
+        run: npm run test
+
       - name: "Publish to GitHub Package Registry"
         run: npm publish --access public
         env:
@@ -68,6 +74,12 @@ jobs:
 
       - name: "Add scope to the package name"
         run: node ./scripts/rename-package.js
+
+      - name: "Build the project"
+        run: npm run build
+
+      - name: "Start testing the project"
+        run: npm run test
 
       - name: "Publish to GitHub Package Registry"
         run: npm publish --access public
@@ -96,6 +108,12 @@ jobs:
 
       - name: "Add scope to the package name"
         run: node ./scripts/rename-package.js
+
+      - name: "Build the project"
+        run: npm run build
+
+      - name: "Start testing the project"
+        run: npm run test
 
       - name: "Publish to GitHub Package Registry"
         run: npm publish --access public
