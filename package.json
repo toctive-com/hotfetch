@@ -12,8 +12,8 @@
     "dev": "nodemon ./lib/index.js",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint \"**/*.{ts,tsx,js,jsx,cjs,mjs}\"",
+    "lint:fix": "eslint \"**/*.{ts,tsx,js,jsx,cjs,mjs}\" --fix"
   },
   "repository": {
     "type": "git",
