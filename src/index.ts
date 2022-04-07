@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import axios from 'axios';
 import $, { CheerioAPI, BasicAcceptedElems, Cheerio } from 'cheerio';
 import { isValidURL } from './helpers';
