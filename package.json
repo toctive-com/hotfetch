@@ -1,15 +1,16 @@
 {
   "name": "hotfetch",
   "scope": "@toctive-com",
-  "version": "2.0.8",
+  "version": "2.1.8",
   "description": "Scrape pages and extract data in ease",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --coverage --watchAll --maxWorkers=1",
-    "start": "npx ts-node ./src ./dist",
-    "build": "tsc ./src/index.ts --outDir ./dist",
-    "build:watch": "tsc -w ./src/index.ts --outDir ./dist",
+    "start": "node ./lib/index.js",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
     "dev": "nodemon ./dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
