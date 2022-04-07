@@ -9,9 +9,9 @@
     "test": "jest",
     "test:watch": "jest --coverage --watchAll --maxWorkers=1",
     "start": "node ./lib/index.js",
+    "dev": "nodemon ./lib/index.js",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
-    "dev": "nodemon ./dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import $, { CheerioAPI, BasicAcceptedElems, Cheerio } from 'cheerio';
-import { isValidURL } from './helpers.js';
+import { isValidURL } from './helpers';
 
 interface elementObject {
   selector: string | Array<string> | BasicAcceptedElems<any>,
