@@ -73,7 +73,7 @@ jobs:
         run: yarn
 
       - name: "Add scope to the package name"
-        run: node ./scripts/rename-package.js
+        run: node ./scripts/rename-package.cjs
 
       - name: "Build the project"
         run: yarn build
@@ -88,7 +88,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: "Remove scope from the package name"
-        run: node ./scripts/rename-package.js
+        run: node ./scripts/rename-package.cjs
 
   publish-gpr:
     needs: build
@@ -107,7 +107,7 @@ jobs:
         run: yarn
 
       - name: "Add scope to the package name"
-        run: node ./scripts/rename-package.js
+        run: node ./scripts/rename-package.cjs
 
       - name: "Build the project"
         run: yarn build
@@ -122,4 +122,4 @@ jobs:
           NPM_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: "Remove scope from the package name"
-        run: node ./scripts/rename-package.js
+        run: node ./scripts/rename-package.cjs
